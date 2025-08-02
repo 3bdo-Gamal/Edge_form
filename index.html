@@ -590,7 +590,6 @@
         htmlElement.lang = currentLanguage;
         htmlElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
 
-        // تحديث النصوص
         Object.keys(lang).forEach(key => {
             const element = document.getElementById(key);
             if (element) {
@@ -606,7 +605,7 @@
             }
         });
 
-        // تحديث placeholder للهاتف
+       
         const phoneInput = document.getElementById('phone');
         if (phoneInput) {
             phoneInput.placeholder = lang.phonePlaceholder;
@@ -692,7 +691,7 @@
             `;
         }
         
-        // استعادة القيمة المختارة
+        
         select.value = currentValue;
     }
 
