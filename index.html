@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlElement">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">نموذج التسجيل</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, rgba(9,50,48,255) 0%, rgba(9,50,48,0.8) 50%, white 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            background: rgba(9,50,48,255);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: rgba(9,50,48,0.8);
+            transform: translateX(-3px);
+        }
+
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            background: linear-gradient(135deg, rgba(9,50,48,255), rgba(9,50,48,0.8));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(9,50,48,0.2);
+        }
+
+        .language-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(9,50,48,0.3);
+        }
+
+       
+        [dir="rtl"] .back-button {
+            left: 20px;
+        }
+
+        [dir="rtl"] .language-toggle {
+            right: 20px;
+        }
+
+        [dir="ltr"] .back-button {
+            right: 20px;
+        }
+
+        [dir="ltr"] .language-toggle {
+            left: 20px;
+        }
+
+        [dir="ltr"] .back-button:hover {
+            transform: translateX(3px);
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 100px; 
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgba(9,50,48,255);
+            font-size: 14px;
+            text-align: center;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .logo-placeholder:hover {
+            background: linear-gradient(45deg, rgba(9,50,48,0.2), rgba(9,50,48,0.4));
+            transform: scale(1.05);
+        }
+
+        .company-logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 15px;
+            display: block;
+        }
+
+        .logo-text {
+            display: none;
+            text-align: center;
+            color: rgba(9,50,48,255);
+            font-size: 14px;
+            line-height: 1.2;
+        }
+
+        .form-title {
+            color: rgba(9,50,48,255);
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: rgba(9,50,48,0.7);
+            font-size: 16px;
+        }
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            flex: 1;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            color: rgba(9,50,48,255);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        input, select, textarea {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+            color: rgba(9,50,48,255);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: rgba(9,50,48,255);
+            box-shadow: 0 0 0 3px rgba(9,50,48,0.1);
+            transform: translateY(-2px);
+        }
+
+        input:hover, select:hover, textarea:hover {
+            border-color: rgba(9,50,48,0.6);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, rgba(9,50,48,255), rgba(9,50,48,0.8));
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(9,50,48,0.3);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            background: rgba(9,50,48,255);
+            color: white;
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-radius: 10px;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+        }
+
+        .footer-section p {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            opacity: 0.8;
+        }
+
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px;
+                border-radius: 10px 10px 0 0;
+            }
+
+            .form-container {
+                padding: 25px;
+                border-radius: 0 0 10px 10px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .form-title {
+                font-size: 24px;
+            }
+
+            .back-button, .language-toggle {
+                top: 15px;
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+          
+            .footer {
+                margin-top: 20px;
+                padding: 30px 15px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-title {
+                font-size: 20px;
+            }
+
+            input, select, textarea {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .submit-button {
+                padding: 15px 30px;
+                font-size: 16px;
+            }
+
+            .language-toggle {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+        }
+
+        
+        .form-group {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+        .form-group:nth-child(7) { animation-delay: 0.7s; }
+        .form-group:nth-child(8) { animation-delay: 0.8s; }
+        .form-group:nth-child(9) { animation-delay: 0.9s; }
+        .form-group:nth-child(10) { animation-delay: 1.0s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+       
+        .fade-transition {
+            opacity: 0.7;
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <span id="backButtonText">← العودة</span>
+            </button>
+            <button class="language-toggle" onclick="toggleLanguage()">
+                <span id="languageToggleText">En</span>
+            </button>
+            <div class="logo-placeholder" id="logoPlaceholder">
+    <img 
+        id="companyLogo" 
+        src="LogoEDGE.png" 
+        alt="Company Logo" 
+        class="company-logo"
+        onload="handleImageLoad()" 
+        onerror="handleImageError()"
+    >
+    <span id="logoText" class="logo-text">شعار الشركة<br>(PSD)</span>
+</div>
+
+            <h1 class="form-title" id="formTitle">نموذج التسجيل</h1>
+            <p class="form-subtitle" id="formSubtitle">يرجى ملء جميع البيانات المطلوبة</p>
+        </div>
+
+        <div class="form-container">
+            <form id="registrationForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name" id="nameLabel">الاسم *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age" id="ageLabel">العمر *</label>
+                        <input type="number" id="age" name="age" min="1" max="100" required>
+                    </div>
+
+                      <div class="form-group">
+                        <label for="university" id="universityLabel">الجامعة *</label>
+                        <input type="text" id="university" name="university" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="college" id="collegeLabel">الكلية *</label>
+                        <input type="text" id="college" name="college" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="phone" id="phoneLabel">رقم الهاتف *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="01234567890">
+                    </div>
+
+                  
+
+                    <div class="form-group full-width">
+                        <label for="address" id="addressLabel">العنوان *</label>
+                        <textarea id="address" name="address" required placeholder="العنوان بالتفصيل"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="government" id="governmentLabel">المحافظة *</label>
+                        <select id="government" name="government" required>
+                            <option value="" id="governmentPlaceholder">اختر المحافظة</option>
+                            <option value="القاهرة">القاهرة</option>
+                            <option value="الجيزة">الجيزة</option>
+                            <option value="القليوبية">القليوبية</option>
+                            <option value="الإسكندرية">الإسكندرية</option>
+                            <option value="البحيرة">البحيرة</option>
+                            <option value="مطروح">مطروح</option>
+                            <option value="الدقهلية">الدقهلية</option>
+                            <option value="دمياط">دمياط</option>
+                            <option value="الشرقية">الشرقية</option>
+                            <option value="كفر الشيخ">كفر الشيخ</option>
+                            <option value="الغربية">الغربية</option>
+                            <option value="المنوفية">المنوفية</option>
+                            <option value="بورسعيد">بورسعيد</option>
+                            <option value="الإسماعيلية">الإسماعيلية</option>
+                            <option value="السويس">السويس</option>
+                            <option value="شمال سيناء">شمال سيناء</option>
+                            <option value="جنوب سيناء">جنوب سيناء</option>
+                            <option value="المنيا">المنيا</option>
+                            <option value="بني سويف">بني سويف</option>
+                            <option value="الفيوم">الفيوم</option>
+                            <option value="أسيوط">أسيوط</option>
+                            <option value="سوهاج">سوهاج</option>
+                            <option value="قنا">قنا</option>
+                            <option value="الأقصر">الأقصر</option>
+                            <option value="أسوان">أسوان</option>
+                            <option value="البحر الأحمر">البحر الأحمر</option>
+                            <option value="الوادي الجديد">الوادي الجديد</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nationalId" id="nationalIdLabel">الرقم القومي *</label>
+                        <input type="text" id="nationalId" name="nationalId" pattern="[0-9]{14}" maxlength="14" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="email" id="emailLabel">البريد الإلكتروني *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="track" id="trackLabel">المسار المطلوب</label>
+                        <select id="track" name="track">
+                            <option value="" id="trackPlaceholder">اختر المسار</option>
+                            <option value="تجارة الكترونية">تجارة الكترونية</option>
+                            <option value="تسويق رقمي">تسويق رقمي</option>
+                            <option value="برمجة">برمجة</option>
+                            <option value="ذكاء اصطناعي">ذكاء اصطناعي</option>
+                            <option value="ريادة اعمال">ريادة اعمال</option>
+                            <option value="ادارة مشروعات">ادارة مشروعات</option>
+                            <option value="موارد بشرية">موارد بشرية</option>
+                            <option value="علاقات عامة">علاقات عامة</option>
+                            <option value="تصميم جرافيك">تصميم جرافيك</option>
+                            <option value="تحليل بيانات">تحليل بيانات</option>
+                            <option value="تطوير الاعمال">تطوير الاعمال</option>
+                            <option value="مهارات شخصية">مهارات شخصية</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button" id="submitButton">إرسال البيانات</button>
+            </form>
+            <div id="formMessage" style="display:none; margin-top: 20px; padding: 15px; border-radius: 10px; font-weight: bold; text-align: center;"></div>
+        </div>
+    </div>
+
+   <script>
+    let currentLanguage = 'ar';
+    
+    const translations = {
+        ar: {
+            pageTitle: 'نموذج التسجيل',
+            backButtonText: '← العودة',
+            languageToggleText: 'En',
+            logotext: 'شعار الشركة<br>(PSD)',
+            formTitle: 'نموذج التسجيل',
+            formSubtitle: 'يرجى ملء جميع البيانات المطلوبة',
+            nameLabel: 'الاسم *',
+            ageLabel: 'العمر *',
+            phoneLabel: 'رقم الهاتف *',
+            phonePlaceholder: '01234567890',
+            universityLabel: 'الجامعة *',
+            collegeLabel: 'الكلية *',
+            addressLabel: 'العنوان *',
+            address: 'العنوان بالتفصيل',
+            governmentLabel: 'المحافظة *',
+            governmentPlaceholder: 'اختر المحافظة',
+            nationalIdLabel: 'الرقم القومي *',
+            nationalIdPlaceholder: '14 رقم',
+            emailLabel: 'البريد الإلكتروني *',
+            trackLabel: 'المسار المطلوب',
+            trackPlaceholder: 'اختر المسار',
+            submitButton: 'إرسال البيانات',
+            submittingText: 'جاري الإرسال...',
+            successMessage: 'تم إرسال البيانات بنجاح! سيتم التواصل معك قريباً.',
+            errorMessage: 'حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.',
+            nationalIdError: 'يجب أن يكون الرقم القومي 14 رقم',
+            ageError: 'يرجى إدخال عمر صحيح',
+            phoneError: 'يرجى إدخال رقم هاتف صحيح (11 رقم)'
+        },
+        en: {
+            pageTitle: 'Registration Form',
+            backButtonText: 'Back →',
+            languageToggleText: 'Ar',
+            logotext: 'Company Logo<br>(PSD)',
+            formTitle: 'Registration Form',
+            formSubtitle: 'Please fill in all required information',
+            nameLabel: 'Name *',
+            ageLabel: 'Age *',
+            phoneLabel: 'Phone Number *',
+            phonePlaceholder: '01234567890',
+            universityLabel: 'University *',
+            collegeLabel: 'College *',
+            addressLabel: 'Address *',
+            address: 'Detailed address',
+            governmentLabel: 'Governorate *',
+            governmentPlaceholder: 'Select Governorate',
+            nationalIdLabel: 'National ID *',
+            nationalIdPlaceholder: '14 digits',
+            emailLabel: 'Email *',
+            trackLabel: 'Desired Track',
+            trackPlaceholder: 'Select Track',
+            submitButton: 'Submit Data',
+            submittingText: 'Submitting...',
+            successMessage: 'Data submitted successfully! We will contact you soon.',
+            errorMessage: 'An error occurred while submitting data. Please try again.',
+            nationalIdError: 'National ID must be 14 digits',
+            ageError: 'Please enter a valid age',
+            phoneError: 'Please enter a valid phone number (11 digits)'
+        }
+    };
+
+     
+    function handleImageLoad() {
+        const img = document.getElementById('companyLogo');
+        const text = document.getElementById('logoText');
+        img.style.display = 'block';
+        text.style.display = 'none';
+    }
+
+    
+    function handleImageError() {
+        const img = document.getElementById('companyLogo');
+        const text = document.getElementById('logoText');
+        img.style.display = 'none';
+        text.style.display = 'block';
+    }
+
+    function toggleLanguage() {
+        const container = document.querySelector('.container');
+        container.classList.add('fade-transition');
+        
+        setTimeout(() => {
+            currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+            updateLanguage();
+            container.classList.remove('fade-transition');
+        }, 150);
+    }
+
+    function updateLanguage() {
+        const htmlElement = document.getElementById('htmlElement');
+        const lang = translations[currentLanguage];
+        
+        htmlElement.lang = currentLanguage;
+        htmlElement.dir = currentLanguage === 'ar' ? 'rtl' : 'ltr';
+
+        // تحديث النصوص
+        Object.keys(lang).forEach(key => {
+            const element = document.getElementById(key);
+            if (element) {
+                if (element.tagName === 'INPUT' && element.placeholder !== undefined) {
+                    element.placeholder = lang[key];
+                } else if (element.tagName === 'TEXTAREA' && element.placeholder !== undefined) {
+                    element.placeholder = lang[key];
+                } else if (element.tagName === 'OPTION') {
+                    element.textContent = lang[key];
+                } else {
+                    element.innerHTML = lang[key];
+                }
+            }
+        });
+
+        // تحديث placeholder للهاتف
+        const phoneInput = document.getElementById('phone');
+        if (phoneInput) {
+            phoneInput.placeholder = lang.phonePlaceholder;
+        }
+
+        updateGovernorateOptions();
+        updateTrackOptions();
+    }
+
+    function updateGovernorateOptions() {
+        const select = document.getElementById('government');
+        const currentValue = select.value;
+        const lang = translations[currentLanguage];
+
+        if (currentLanguage === 'en') {
+            const englishGovernorates = [
+                { value: 'القاهرة', text: 'Cairo' },
+                { value: 'الجيزة', text: 'Giza' },
+                { value: 'القليوبية', text: 'Qalyubia' },
+                { value: 'الإسكندرية', text: 'Alexandria' },
+                { value: 'البحيرة', text: 'Beheira' },
+                { value: 'مطروح', text: 'Matrouh' },
+                { value: 'الدقهلية', text: 'Dakahlia' },
+                { value: 'دمياط', text: 'Damietta' },
+                { value: 'الشرقية', text: 'Sharqia' },
+                { value: 'كفر الشيخ', text: 'Kafr El Sheikh' },
+                { value: 'الغربية', text: 'Gharbia' },
+                { value: 'المنوفية', text: 'Monufia' },
+                { value: 'بورسعيد', text: 'Port Said' },
+                { value: 'الإسماعيلية', text: 'Ismailia' },
+                { value: 'السويس', text: 'Suez' },
+                { value: 'شمال سيناء', text: 'North Sinai' },
+                { value: 'جنوب سيناء', text: 'South Sinai' },
+                { value: 'المنيا', text: 'Minya' },
+                { value: 'بني سويف', text: 'Beni Suef' },
+                { value: 'الفيوم', text: 'Fayoum' },
+                { value: 'أسيوط', text: 'Assiut' },
+                { value: 'سوهاج', text: 'Sohag' },
+                { value: 'قنا', text: 'Qena' },
+                { value: 'الأقصر', text: 'Luxor' },
+                { value: 'أسوان', text: 'Aswan' },
+                { value: 'البحر الأحمر', text: 'Red Sea' },
+                { value: 'الوادي الجديد', text: 'New Valley' }
+            ];
+
+            select.innerHTML = `<option value="">${lang.governmentPlaceholder}</option>`;
+            englishGovernorates.forEach(gov => {
+                const opt = document.createElement('option');
+                opt.value = gov.value;
+                opt.textContent = gov.text;
+                select.appendChild(opt);
+            });
+        } else {
+            select.innerHTML = `
+                <option value="">${lang.governmentPlaceholder}</option>
+                <option value="القاهرة">القاهرة</option>
+                <option value="الجيزة">الجيزة</option>
+                <option value="القليوبية">القليوبية</option>
+                <option value="الإسكندرية">الإسكندرية</option>
+                <option value="البحيرة">البحيرة</option>
+                <option value="مطروح">مطروح</option>
+                <option value="الدقهلية">الدقهلية</option>
+                <option value="دمياط">دمياط</option>
+                <option value="الشرقية">الشرقية</option>
+                <option value="كفر الشيخ">كفر الشيخ</option>
+                <option value="الغربية">الغربية</option>
+                <option value="المنوفية">المنوفية</option>
+                <option value="بورسعيد">بورسعيد</option>
+                <option value="الإسماعيلية">الإسماعيلية</option>
+                <option value="السويس">السويس</option>
+                <option value="شمال سيناء">شمال سيناء</option>
+                <option value="جنوب سيناء">جنوب سيناء</option>
+                <option value="المنيا">المنيا</option>
+                <option value="بني سويف">بني سويف</option>
+                <option value="الفيوم">الفيوم</option>
+                <option value="أسيوط">أسيوط</option>
+                <option value="سوهاج">سوهاج</option>
+                <option value="قنا">قنا</option>
+                <option value="الأقصر">الأقصر</option>
+                <option value="أسوان">أسوان</option>
+                <option value="البحر الأحمر">البحر الأحمر</option>
+                <option value="الوادي الجديد">الوادي الجديد</option>
+            `;
+        }
+        
+        // استعادة القيمة المختارة
+        select.value = currentValue;
+    }
+
+    function updateTrackOptions() {
+        const select = document.getElementById('track');
+        const currentValue = select.value;
+        const lang = translations[currentLanguage];
+
+        if (currentLanguage === 'en') {
+            const englishTracks = [
+                { value: 'تجارة الكترونية', text: 'E-commerce' },
+                { value: 'تسويق رقمي', text: 'Digital Marketing' },
+                { value: 'برمجة', text: 'Programming' },
+                { value: 'ذكاء اصطناعي', text: 'Artificial Intelligence' },
+                { value: 'ريادة اعمال', text: 'Entrepreneurship' },
+                { value: 'ادارة مشروعات', text: 'Project Management' },
+                { value: 'موارد بشرية', text: 'Human Resources' },
+                { value: 'علاقات عامة', text: 'Public Relations' },
+                { value: 'تصميم جرافيك', text: 'Graphic Design' },
+                { value: 'تحليل بيانات', text: 'Data Analysis' },
+                { value: 'تطوير الاعمال', text: 'Business Development' },
+                { value: 'مهارات شخصية', text: 'Personal Skills' }
+            ];
+
+            select.innerHTML = `<option value="">${lang.trackPlaceholder}</option>`;
+            englishTracks.forEach(track => {
+                const opt = document.createElement('option');
+                opt.value = track.value;
+                opt.textContent = track.text;
+                select.appendChild(opt);
+            });
+        } else {
+            select.innerHTML = `
+                <option value="">${lang.trackPlaceholder}</option>
+                <option value="تجارة الكترونية">تجارة الكترونية</option>
+                <option value="تسويق رقمي">تسويق رقمي</option>
+                <option value="برمجة">برمجة</option>
+                <option value="ذكاء اصطناعي">ذكاء اصطناعي</option>
+                <option value="ريادة اعمال">ريادة اعمال</option>
+                <option value="ادارة مشروعات">ادارة مشروعات</option>
+                <option value="موارد بشرية">موارد بشرية</option>
+                <option value="علاقات عامة">علاقات عامة</option>
+                <option value="تصميم جرافيك">تصميم جرافيك</option>
+                <option value="تحليل بيانات">تحليل بيانات</option>
+                <option value="تطوير الاعمال">تطوير الاعمال</option>
+                <option value="مهارات شخصية">مهارات شخصية</option>
+            `;
+        }
+        
+        
+        select.value = currentValue;
+    }
+
+    function goBack() {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = '/';
+        }
+    }
+
+    
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4ggTjLTL7fPWEq8BMTa_La7bBOtarij30JH9MkRWPRJJY8CMkS_EUcB3DHNyRD84Ttg/exec';
+
+    async function sendToGoogleSheets(data, form) {
+        const submitButton = document.querySelector('.submit-button');
+        const originalText = submitButton.textContent;
+        submitButton.textContent = translations[currentLanguage].submittingText;
+        submitButton.disabled = true;
+
+        try {
+            data.timestamp = new Date().toLocaleString('ar-EG', {
+                timeZone: 'Africa/Cairo',
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+            data.language = currentLanguage;
+
+            await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const messageBox = document.getElementById('formMessage');
+            messageBox.style.display = 'block';
+            messageBox.style.backgroundColor = '#e6f7f1'; 
+            messageBox.style.color = '#093230';           
+            messageBox.textContent = translations[currentLanguage].successMessage;
+
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 5000);
+            form.reset();
+        } catch (error) {
+            console.error(error);
+            const messageBox = document.getElementById('formMessage');
+            messageBox.style.display = 'block';
+            messageBox.style.backgroundColor = '#fff1f0'; 
+            messageBox.style.color = '#b71c1c';           
+            messageBox.textContent = translations[currentLanguage].errorMessage;
+
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 5000);
+        } finally {
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+        }
+    }
+
+    
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const data = {};
+        for (let [key, value] of formData.entries()) data[key] = value;
+
+       
+        if (!/^\d{14}$/.test(data.nationalId)) {
+            alert(translations[currentLanguage].nationalIdError);
+            return;
+        }
+
+        
+        const age = parseInt(data.age);
+        if (age < 16 || age > 100) {
+            alert(translations[currentLanguage].ageError);
+            return;
+        }
+
+       
+        if (!/^01[0-9]{9}$/.test(data.phone)) {
+            alert(translations[currentLanguage].phoneError);
+            return;
+        }
+
+        sendToGoogleSheets(data, this);
+    });
+
+    
+    document.getElementById('nationalId').addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/\D/g, '');
+    });
+
+   
+    document.getElementById('phone').addEventListener('input', function(e) {
+        
+        e.target.value = e.target.value.replace(/\D/g, '');
+        
+        
+        if (e.target.value.length > 11) {
+            e.target.value = e.target.value.slice(0, 11);
+        }
+    });
+
+    
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            document.querySelector('.form-container').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }, 500);
+    });
+
+   
+    document.addEventListener('DOMContentLoaded', updateLanguage);
+</script>
+</body>
+</html>
