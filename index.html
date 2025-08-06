@@ -206,6 +206,16 @@
             min-height: 100px;
         }
 
+        #disability-container {
+  margin-top: 1.5rem;
+}
+
+#disabilityLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+
+}
         .submit-button {
             background: linear-gradient(135deg, rgba(9,50,48,255), rgba(9,50,48,0.8));
             color: white;
@@ -346,6 +356,7 @@
         .form-group:nth-child(8) { animation-delay: 0.8s; }
         .form-group:nth-child(9) { animation-delay: 0.9s; }
         .form-group:nth-child(10) { animation-delay: 1.0s; }
+        .form-group:nth-child(11) { animation-delay: 1.1s; }
 
         @keyframes fadeInUp {
             to {
@@ -483,6 +494,12 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group full-width" id="disability-container">
+                     <label id="disabilityLabel">
+                    <input type="checkbox" id="isDisabled" name="isDisabled">
+                     <span id="disabilityText">ذوي الهمم</span>
+                    </label>
+                    </div>
 
                 <button type="submit" class="submit-button" id="submitButton">إرسال البيانات</button>
             </form>
@@ -522,7 +539,8 @@
             errorMessage: 'حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.',
             nationalIdError: 'يجب أن يكون الرقم القومي 14 رقم',
             ageError: 'يرجى إدخال عمر صحيح',
-            phoneError: 'يرجى إدخال رقم هاتف صحيح (11 رقم)'
+            phoneError: 'يرجى إدخال رقم هاتف صحيح (11 رقم)',
+            disabilityText: 'ذوي الهمم',
         },
         en: {
             pageTitle: 'Registration Form',
@@ -552,7 +570,8 @@
             errorMessage: 'An error occurred while submitting data. Please try again.',
             nationalIdError: 'National ID must be 14 digits',
             ageError: 'Please enter a valid age',
-            phoneError: 'Please enter a valid phone number (11 digits)'
+            phoneError: 'Please enter a valid phone number (11 digits)',
+            disabilityText: 'with disabilities',
         }
     };
 
@@ -610,7 +629,7 @@
         if (phoneInput) {
             phoneInput.placeholder = lang.phonePlaceholder;
         }
-
+         document.getElementById('disabilityText').textContent = lang.disabilityText;
         updateGovernorateOptions();
         updateTrackOptions();
     }
@@ -754,7 +773,7 @@
     }
 
     
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4ggTjLTL7fPWEq8BMTa_La7bBOtarij30JH9MkRWPRJJY8CMkS_EUcB3DHNyRD84Ttg/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby958pUPE0U2F8Mjuic4_lFr8yeZivt1UNfWh8cX_VZKmq3F5s3rVxWgwV4lwkmnHJ7XA/exec';
 
     async function sendToGoogleSheets(data, form) {
         const submitButton = document.querySelector('.submit-button');
@@ -769,7 +788,7 @@
                 hour: '2-digit', minute: '2-digit', second: '2-digit'
             });
             data.language = currentLanguage;
-
+            data.isDisabled = document.getElementById('isDisabled').checked ? 'Yes' : 'No';
             await fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
